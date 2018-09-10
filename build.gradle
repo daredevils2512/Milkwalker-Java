@@ -1,0 +1,50 @@
+plugins {
+    id "edu.wpi.first.GradleRIO" version "2018.06.21"
+    id 'java'
+
+}
+
+def ROBOT_CLASS = "frc.team2512.robot.Robot"
+
+deploy {
+    targets {
+        target("roborio", edu.wpi.first.gradlerio.frc.RoboRIO) {
+            // Team can be overridden by command line, for use with VSCode
+            team = getTeamOrDefault(2512)
+        }
+    }
+    artifacts {
+        artifact('frcJava', edu.wpi.first.gradlerio.frc.FRCJavaArtifact) {
+            targets << "roborio"
+            // Debug can be overridden by command line, for use with VSCode
+            debug = getDebugOrDefault(false)
+        }
+    }
+}
+
+group 'org.daredevils2512'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile wpilib()
+    compile ctre()
+    compile navx()
+
+}
+
+jar {
+    from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    manifest edu.wpi.first.gradlerio.GradleRIOPlugin.javaManifest(ROBOT_CLASS)
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.9'
+}
+
