@@ -1,10 +1,10 @@
 plugins {
-    id "edu.wpi.first.GradleRIO" version "2018.06.21"
     id 'java'
-
+    id "edu.wpi.first.GradleRIO" version "2019.0.0-alpha-3"
+//2019.0.0-alpha-3
 }
 
-def ROBOT_CLASS = "frc.team2512.robot.Robot"
+def ROBOT_CLASS = "org.daredevils2512.powerup.Robot"
 
 deploy {
     targets {
@@ -32,7 +32,6 @@ repositories {
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
     compile wpilib()
     compile ctre()
     compile navx()
