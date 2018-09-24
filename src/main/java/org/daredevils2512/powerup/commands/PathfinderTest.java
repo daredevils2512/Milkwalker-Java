@@ -8,6 +8,7 @@ import jaci.pathfinder.followers.EncoderFollower;
 import jaci.pathfinder.modifiers.SwerveModifier;
 import jaci.pathfinder.modifiers.TankModifier;
 import org.daredevils2512.powerup.Robot;
+import org.daredevils2512.powerup.RobotMap;
 
 public class PathfinderTest extends Command {
     private Waypoint[] points;
@@ -16,6 +17,7 @@ public class PathfinderTest extends Command {
     private TankModifier modifier = new TankModifier(trajectory).modify(0.5);
     private EncoderFollower left = new EncoderFollower(modifier.getLeftTrajectory());
     private EncoderFollower right = new EncoderFollower(modifier.getRightTrajectory());
+
     @Override
     protected void initialize() {
         points = new Waypoint[]{
@@ -25,18 +27,18 @@ public class PathfinderTest extends Command {
         };
         trajectory = Pathfinder.generate(points, config);
 
-        left.configureEncoder(encoder_position, 1000, wheel_diameter);
-        left.configurePIDVA(1.0, 0.0, 0.0, 1 / max_velocity, 0);
-        right.configureEncoder(encoder_position, 1000, wheel_diameter);
-        right.configurePIDVA(1.0, 0.0, 0.0, 1 / max_velocity, 0);
+        left.configureEncoder(RobotMap.leftEncoder.get(), 1024, 0.1016);
+        left.configurePIDVA(1.0, 0.0, 0.0, 1 / 1.7, 0);
+        right.configureEncoder(RobotMap.rightEncoder.get(), 1024, 0.1016);
+        right.configurePIDVA(1.0, 0.0, 0.0, 1 / 1.7, 0);
     }
 
     @Override
     protected void execute() {
-        double l = left.calculate(encoder_position_left);
-        double r = right.calculate(encoder_position_right);
+        double l = left.calculate(RobotMap.leftEncoder.get());
+        double r = right.calculate(RobotMap.rightEncoder.get());
 
-        double gyro_heading = Robot.m_navX.navx.getCompassHeading();    // Assuming the gyro is giving a value in degrees
+        double gyro_heading = Robot.m_navX.getCompassHeading();    // Assuming the gyro is giving a value in degrees
         double desired_heading = Pathfinder.r2d(left.getHeading());  // Should also be in degrees
 
         double angleDifference = Pathfinder.boundHalfDegrees(desired_heading - gyro_heading); // set to -180 to 180
