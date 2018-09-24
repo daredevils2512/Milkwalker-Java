@@ -1,11 +1,14 @@
 plugins {
-    id 'java'
-    id "edu.wpi.first.GradleRIO" version "2019.0.0-alpha-3"
-//2019.0.0-alpha-3
+    id "java"
+    //id "edu.wpi.first.GradleRIO" version "2018.06.21"
+      id "edu.wpi.first.GradleRIO" version "2019.0.0-alpha-3"
+
 }
 
 def ROBOT_CLASS = "org.daredevils2512.powerup.Robot"
 
+// Define my targets (RoboRIO) and artifacts (deployable files)
+// This is added by GradleRIO's backing project EmbeddedTools.
 deploy {
     targets {
         target("roborio", edu.wpi.first.gradlerio.frc.RoboRIO) {
@@ -22,22 +25,17 @@ deploy {
     }
 }
 
-group 'org.daredevils2512'
-version '1.0-SNAPSHOT'
-
-sourceCompatibility = 1.8
-
-repositories {
-    mavenCentral()
-}
-
+// Defining my dependencies. In this case, WPILib (+ friends), CTRE Toolsuite (Talon SRX)
+// and NavX.
 dependencies {
     compile wpilib()
     compile ctre()
     compile navx()
-
 }
 
+// Setting up my Jar File. In this case, adding all libraries into the main jar ('fat jar')
+// in order to make them all available at runtime. Also adding the manifest so WPILib
+// knows where to look for our Robot Class.
 jar {
     from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
     manifest edu.wpi.first.gradlerio.GradleRIOPlugin.javaManifest(ROBOT_CLASS)
@@ -46,4 +44,3 @@ jar {
 task wrapper(type: Wrapper) {
     gradleVersion = '4.9'
 }
-
