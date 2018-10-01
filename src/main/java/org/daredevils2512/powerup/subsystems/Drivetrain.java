@@ -47,11 +47,11 @@ public class Drivetrain extends Subsystem implements PIDOutput {
     	RobotMap.chassis.arcadeDrive(move, turn);
     }
     
-    public double getLeftEncoderValue() {
+    public int getLeftEncoderValue() {
     	return RobotMap.leftEncoder.get();
     }
     
-    public double getRightEncoderValue() {
+    public int getRightEncoderValue() {
     	return RobotMap.rightEncoder.get();
     }
     

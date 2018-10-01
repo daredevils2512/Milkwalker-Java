@@ -8,6 +8,7 @@ import jaci.pathfinder.followers.EncoderFollower;
 import jaci.pathfinder.modifiers.SwerveModifier;
 import jaci.pathfinder.modifiers.TankModifier;
 import org.daredevils2512.powerup.Robot;
+import org.daredevils2512.powerup.RobotMap;
 
 public class PathfinderTest extends Command {
     private Waypoint[] points;
@@ -25,16 +26,16 @@ public class PathfinderTest extends Command {
         };
         trajectory = Pathfinder.generate(points, config);
 
-        left.configureEncoder(encoder_position, 1000, wheel_diameter);
-        left.configurePIDVA(1.0, 0.0, 0.0, 1 / max_velocity, 0);
-        right.configureEncoder(encoder_position, 1000, wheel_diameter);
-        right.configurePIDVA(1.0, 0.0, 0.0, 1 / max_velocity, 0);
+        left.configureEncoder(Robot.m_drivetrain.getLeftEncoderValue(), 1000, 0.16);
+        left.configurePIDVA(1.0, 0.0, 0.0, 1 / 1.7, 0);
+        right.configureEncoder(Robot.m_drivetrain.getRightEncoderValue(), 1000, 0.16);
+        right.configurePIDVA(1.0, 0.0, 0.0, 1 / 1.7, 0);
     }
 
     @Override
     protected void execute() {
-        double l = left.calculate(encoder_position_left);
-        double r = right.calculate(encoder_position_right);
+        double l = left.calculate(Robot.m_drivetrain.getLeftEncoderValue());
+        double r = right.calculate(Robot.m_drivetrain.getRightEncoderValue());
 
         double gyro_heading = Robot.m_navX.navx.getCompassHeading();    // Assuming the gyro is giving a value in degrees
         double desired_heading = Pathfinder.r2d(left.getHeading());  // Should also be in degrees
@@ -42,8 +43,8 @@ public class PathfinderTest extends Command {
         double angleDifference = Pathfinder.boundHalfDegrees(desired_heading - gyro_heading); // set to -180 to 180
         double turn = 0.8 * (-1.0/80.0) * angleDifference;
 
-        setLeftMotors(l + turn);
-        setRightMotors(r - turn);
+        Robot.m_drivetrain.driveRobotTank(l + turn,r - turn);
+
     }
 
     @Override
