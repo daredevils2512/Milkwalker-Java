@@ -97,6 +97,7 @@ public class OI {
 		DRC_rightBumper.whenPressed(new IntakeActuateArms(solenoidReverse));
 		DRC_leftTrigger.whileHeld(new IntakeRun(1.0)); //intaking
 		DRC_leftTrigger.whenReleased(intakeStop);
+		DRC_aButton.whileHeld(new PathfinderTest());
 		DRC_xButton.whileHeld(new IntakeRun(-1.0)); //extaking
 		DRC_xButton.whenReleased(intakeStop);
 		DRC_rightTrigger.whenPressed(new DrivetrainShift(solenoidForward));

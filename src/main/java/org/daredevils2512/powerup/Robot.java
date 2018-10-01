@@ -26,7 +26,7 @@ public class Robot extends TimedRobot {
 	public static Drivetrain m_drivetrain = new Drivetrain();
 	public static Elevator m_elevator = new Elevator();
 	public static Intake m_intake = new Intake();
-	public static OI m_oi = new OI();
+	public static OI m_oi;
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -39,7 +39,8 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
-		RobotMap.Init();		
+		RobotMap.Init();
+		m_oi = new OI();
 	}
 
 	/**

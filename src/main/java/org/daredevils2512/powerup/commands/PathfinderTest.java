@@ -11,20 +11,20 @@ import org.daredevils2512.powerup.Robot;
 import org.daredevils2512.powerup.RobotMap;
 
 public class PathfinderTest extends Command {
-    private Waypoint[] points;
+    private Waypoint[] points = new Waypoint[]{
+            new Waypoint(1,2, Pathfinder.d2r(45)),
+            new Waypoint(0,0,Pathfinder.d2r(-45)),
+            new Waypoint(-1,-2, 0)
+    };
     private Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, 1.7, 2.0, 60.0);
-    private Trajectory trajectory;
+    private Trajectory trajectory = trajectory = Pathfinder.generate(points, config);
     private TankModifier modifier = new TankModifier(trajectory).modify(0.5);
     private EncoderFollower left = new EncoderFollower(modifier.getLeftTrajectory());
     private EncoderFollower right = new EncoderFollower(modifier.getRightTrajectory());
     @Override
     protected void initialize() {
-        points = new Waypoint[]{
-                new Waypoint(1,2, Pathfinder.d2r(45)),
-                new Waypoint(0,0,Pathfinder.d2r(-45)),
-                new Waypoint(-1,-2, 0)
-        };
-        trajectory = Pathfinder.generate(points, config);
+
+        ;
 
         left.configureEncoder(Robot.m_drivetrain.getLeftEncoderValue(), 1000, 0.16);
         left.configurePIDVA(1.0, 0.0, 0.0, 1 / 1.7, 0);
