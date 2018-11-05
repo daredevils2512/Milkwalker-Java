@@ -17,7 +17,7 @@ public class PathfinderTest extends Command {
             new Waypoint(-1,-2, 0)
     };
     private Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, 1.7, 2.0, 60.0);
-    private Trajectory trajectory = trajectory = Pathfinder.generate(points, config);
+    private Trajectory trajectory = Pathfinder.generate(points, config);
     private TankModifier modifier = new TankModifier(trajectory).modify(0.5);
     private EncoderFollower left = new EncoderFollower(modifier.getLeftTrajectory());
     private EncoderFollower right = new EncoderFollower(modifier.getRightTrajectory());
