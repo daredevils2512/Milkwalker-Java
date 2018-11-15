@@ -12,9 +12,9 @@ import org.daredevils2512.powerup.RobotMap;
 
 public class PathfinderTest extends Command {
     private Waypoint[] points = new Waypoint[]{
-            new Waypoint(1,2, Pathfinder.d2r(45)),
+            new Waypoint(0,0, Pathfinder.d2r(45)),
             new Waypoint(0,0,Pathfinder.d2r(-45)),
-            new Waypoint(-1,-2, 0)
+            // new Waypoint(-1,-2, 0)
     };
     private Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, 1.7, 2.0, 60.0);
     private Trajectory trajectory = Pathfinder.generate(points, config);

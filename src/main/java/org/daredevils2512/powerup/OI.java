@@ -105,12 +105,13 @@ public class OI {
 		
 		//coDriver joystick buttons
 //		CDR_trigger.whileHeld(new CMG_ExtakeCube()); //normal send out
+		CDR_trigger.whileHeld(new IntakeRun(-0.45));
 		CDR_trigger.whenReleased(intakeStop);
-		CDR_sideButton.whileHeld(new IntakeRun(0.55)); //medium send out
+		CDR_sideButton.whileHeld(new IntakeRun(-0.55)); //medium send out
 		CDR_sideButton.whenReleased(intakeStop);
-		CDR_stickTopLeft.whileHeld (new IntakeRun(1.0)); //full send out
+		CDR_stickTopLeft.whileHeld (new IntakeRun(-1.0)); //full send out
 		CDR_stickTopLeft.whenReleased (intakeStop); //stop intake
-		CDR_stickBottomLeft.whileHeld(new IntakeRun(0.4)); //soft send out
+		CDR_stickBottomLeft.whileHeld(new IntakeRun(-0.4)); //soft send out
 		CDR_stickBottomLeft.whenReleased(intakeStop); //stop intake
 		CDR_stickTopRight.whenPressed(new IntakeActuateArms(solenoidForward)); //actuate intake arms in
 		CDR_stickBottomRight.whenPressed(new IntakeActuateArms(solenoidReverse)); //actuate intake arms out
@@ -134,12 +135,21 @@ public class OI {
 		return val;
 	}
 	
+	public double getSign(double value) {
+		return (double) value < 0 ? -1.0 : 1.0;
+	}
+
+	public double exponate(double val) {
+		return Math.pow((Math.max(0.0, Math.abs(val) - 0.08)) * (1.0/(1.0-0.08)), 2.0) * getSign(val);
+	}
+
 	public double getMove() {
 		return desenitize(driver.getRawAxis(1));
 	}
 	
 	public double getTurn() {
-		return -desenitize(driver.getRawAxis(4));
+		double val = -desenitize(driver.getRawAxis(4));
+		return exponate(val);
 	}
 	
 	public double getLiftControl() {
