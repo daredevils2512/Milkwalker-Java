@@ -3,6 +3,7 @@ package org.daredevils2512.powerup.subsystems;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
+import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -13,7 +14,7 @@ public class NavX extends Subsystem implements PIDSource {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 	private PIDSourceType sourceType = PIDSourceType.kDisplacement;
-	public AHRS navx;
+	public AHRS navx = new AHRS(Port.kMXP);
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());

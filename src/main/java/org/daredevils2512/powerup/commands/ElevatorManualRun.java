@@ -37,8 +37,8 @@ public class ElevatorManualRun extends Command {
     	} else if (Robot.m_elevator.getLimitSwitchValue()) {
     		if (Robot.m_oi.getLiftControl() > 0) {
     			Robot.m_elevator.setSpeed(Robot.m_oi.getLiftControl());
-    	} else {
-    		Robot.m_elevator.setSpeed(0.0);
+    		} else {
+    			Robot.m_elevator.setSpeed(0.0);
     	}
 
     	} else if (Robot.m_oi.getLiftControl() < -0.8) {

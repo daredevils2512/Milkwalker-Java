@@ -22,10 +22,10 @@ import org.daredevils2512.powerup.subsystems.*;
  * project.
  */
 public class Robot extends TimedRobot {
-	public static NavX m_navX = new NavX();
-	public static Drivetrain m_drivetrain = new Drivetrain();
-	public static Elevator m_elevator = new Elevator();
-	public static Intake m_intake = new Intake();
+	public static NavX m_navX;
+	public static Drivetrain m_drivetrain;
+	public static Elevator m_elevator;
+	public static Intake m_intake;
 	public static OI m_oi;
 
 	Command m_autonomousCommand;
@@ -40,6 +40,10 @@ public class Robot extends TimedRobot {
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
 		RobotMap.Init();
+		m_navX = new NavX();
+		m_drivetrain = new Drivetrain();
+		m_elevator = new Elevator();
+		m_intake = new Intake();
 		m_oi = new OI();
 	}
 
@@ -116,8 +120,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		SmartDashboard.putNumber("Left Encoder", m_drivetrain.getLeftEncoderValue());
-		SmartDashboard.putNumber("Right Encoder", m_drivetrain.getRightEncoderValue());
+		SmartDashboard.putNumber("Left Encoder", m_drivetrain.getLeftEncoderDistance());
+		SmartDashboard.putNumber("Right Encoder", m_drivetrain.getRightEncoderDistance());
 		SmartDashboard.putNumber("Elevator Encoder", m_elevator.getLiftHeight());
 		SmartDashboard.putBoolean("Intake Limit", m_intake.getLimitSwitchValue());
 		SmartDashboard.putBoolean("Elevator Limit", m_elevator.getLimitSwitchValue());

@@ -24,7 +24,6 @@ public class Drivetrain extends Subsystem implements PIDOutput {
 
 	// Put methods for controlling this subsystem
 
-
 	public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
@@ -47,14 +46,22 @@ public class Drivetrain extends Subsystem implements PIDOutput {
     	RobotMap.chassis.arcadeDrive(move, turn);
     }
     
+    public double getLeftEncoderDistance() {
+    	return RobotMap.leftEncoder.getDistance();
+    }
+    
+    public double getRightEncoderDistance() {
+    	return RobotMap.rightEncoder.getDistance();
+    }
+    
     public int getLeftEncoderValue() {
-    	return RobotMap.leftEncoder.get();
+        return RobotMap.leftEncoder.get();
     }
-    
+
     public int getRightEncoderValue() {
-    	return RobotMap.rightEncoder.get();
+        return RobotMap.rightEncoder.get();
     }
-    
+
     public void resetEncoders() {
     	RobotMap.leftEncoder.reset();
     	RobotMap.rightEncoder.reset();
