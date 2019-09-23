@@ -5,7 +5,7 @@ import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.Waypoint;
 import jaci.pathfinder.followers.EncoderFollower;
-import jaci.pathfinder.modifiers.SwerveModifier;
+import jaci.pathfinder.modifiers.SwerveModifier;\
 import jaci.pathfinder.modifiers.TankModifier;
 import org.daredevils2512.powerup.Robot;
 import org.daredevils2512.powerup.RobotMap;
